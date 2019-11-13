@@ -50,13 +50,10 @@ export default function Index() {
   }, []);
 
   return (
-    <Container className={classes.container} maxWidth="xl">
+    <Container className={classes.container} maxWidth="lg">
       {state.isLoading && <CircularProgress />}
       {state.heroes.map(hero => (
-        <>
-          <Hero key={0} {...hero} />
-          <Hero key={1} {...hero} />
-        </>
+        <Hero key={hero.id} {...hero} />
       ))}
     </Container>
   );
