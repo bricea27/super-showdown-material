@@ -36,16 +36,25 @@ export default function Index() {
 		return hero;
 	}
 
+	function generateRandomId() {
+		// TODO make distinct
+		return Math.floor(Math.random() * (731 - 1) + 1);
+	}
+
 	useEffect(() => {
-		const id = Math.floor(Math.random() * (731 - 1) + 1);
-		getHero(id).then(res => {
-			if (res.response === 'success') {
-				setState(prevState => ({
-					...prevState,
-					heroes: [{ ...res }],
-					isLoading: false
-				}));
-			}
+		const playerOneId = generateRandomId();
+		const playerTwoId = generateRandomId();
+
+		Promise.all([getHero(playerOneId), getHero(playerTwoId)]).then(response => {
+			response.map(res => {
+				if (res.response === 'success') {
+					setState(prevState => ({
+						...prevState,
+						heroes: [...prevState.heroes, { ...res }]
+					}));
+				}
+			});
+			setState(prevState => ({ ...prevState, isLoading: false }));
 		});
 	}, []);
 

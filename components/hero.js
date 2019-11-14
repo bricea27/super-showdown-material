@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import IconButton from '@material-ui/core/IconButton';
+import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(theme => ({
@@ -12,17 +12,21 @@ const useStyles = makeStyles(theme => ({
 		display: 'flex',
 		flexDirection: 'column',
 		flex: 1
-		// [theme.breakpoints.up("sm")]: {
-		//   flexDirection: "row"
-		// }
 	},
 	details: {
 		display: 'flex',
 		flexDirection: 'column',
 		flex: 1
 	},
+	name: {
+		fontWeight: theme.typography.fontWeightBold
+	},
 	content: {
 		flex: '1 0 auto'
+	},
+	chip: {
+		textTransform: 'capitalize',
+		margin: theme.spacing(1, 1, 0, 0)
 	},
 	cover: {
 		minHeight: 200,
@@ -33,8 +37,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Hero(props) {
-	console.log(props);
 	const classes = useStyles();
+
 	return (
 		<Card className={classes.card}>
 			<CardMedia
@@ -44,9 +48,20 @@ export default function Hero(props) {
 			/>
 			<div className={classes.details}>
 				<CardContent className={classes.content}>
-					<Typography component="h5" variant="h5">
+					<Typography className={classes.name} variant="h4">
 						{props.name}
 					</Typography>
+					{Object.keys(props.powerstats).map(stat => {
+						const value = props.powerstats[stat] === 'null' ? '?' : props.powerstats[stat];
+						return (
+							<Chip
+								key={stat}
+								className={classes.chip}
+								color="primary"
+								label={`${stat}: ${value}`}
+							/>
+						);
+					})}
 				</CardContent>
 			</div>
 		</Card>
