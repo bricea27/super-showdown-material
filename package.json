@@ -16,6 +16,12 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "format": "prettier --write \"{**/,}*.{js,jsx,css,less,scss,json,graphql,gql,md,yaml,yml,html,webmanifest,babelrc,prettierrc}\""
+  },
+  "devDependencies": {
+    "husky": "^3.0.9",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1"
   }
 }
